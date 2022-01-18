@@ -1,29 +1,30 @@
 class Solution {
 public:
     int longestPalindrome(vector<string>& words) {
-        map<string, int> mp;
+        unordered_multiset<string> s;
         int ans = 0;
         
         for(auto str : words) {
             string rts = str; 
             reverse(rts.begin(), rts.end());
             
-            if(mp[rts] > 0) {
-                ans += 4;
-                mp[rts]--;
-            }
+            if(s.find(rts) == s.end())
+                s.insert(str);
             else {
-                mp[str]++;
+                ans += 4;
+                cout<<str<<" ";
+                s.erase(s.find(rts)); 
             }
         }
         
-        for(int i=0; i<words.size(); i++) {
-            string s = words[i];
-            int cnt = mp[s]; 
-            if(s[0] == s[1] and cnt > 0) {
+        for(auto it : s) {
+            if(it[0] == it[1]) {
                 ans += 2;
-                break;
-            }
+                return ans;
+            } 
+            // else if(it[0] == it[1]) {
+                // ans += 2;
+            // }
         }
         
         return ans;
