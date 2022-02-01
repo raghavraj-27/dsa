@@ -1,5 +1,6 @@
 class Solution {
 public:
+    
     string subStrHash(string s, int power, int mod, int k, int hashValue) {
         long long p = 1, hash = 0;
         for(int i=1; i<k; i++) {
@@ -16,7 +17,7 @@ public:
             if(i == k-1) {
                 myHashValue[i] = hash;
             } else if(i >= k) {
-                hash = (((hash - (str[i-k] - 'a' + 1)*p%mod)*power)%mod + (str[i] - 'a' + 1)) % mod;
+                hash = (((hash - (str[i-k] - 'a' + 1)*p % mod)*power)%mod + (str[i] - 'a' + 1)) % mod;
                 
                 if(hash < 0)
                     hash += mod;
