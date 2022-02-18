@@ -9,15 +9,10 @@ public:
             k--;
         }
         
-//         int i=0; 
-//         int n = num.size();
         while(num.front() == '0') {
             num.erase(0,1);
-            // i++
         }
         
         return num=="" ? "0" : num;
     }
 };
-
-// 1 |4| |3| |4| |3| 1 |9|
