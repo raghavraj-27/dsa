@@ -8,14 +8,7 @@ public:
         if(j >= sum[0].size()) j = sum[0].size()-1;
         return sum[i][j];
     }
-    void print(vector<vector<int>>& mat) {
-        for(int i=0; i<mat.size(); i++) {
-            for(int j=0; j<mat[0].size(); j++) {
-                cout<<mat[i][j]<<" ";
-            }
-            cout<<"\n";
-        }
-    }
+    
     NumMatrix(vector<vector<int>>& matrix) {
         int m = matrix.size(), n = matrix[0].size();
         vector<vector<int>> prefix(m, vector<int> (n, 0));
@@ -26,7 +19,6 @@ public:
                     - extractSum(i-1, j-1, sum);
             }
         }
-        print(sum);
     }
     
     int sumRegion(int row1, int col1, int row2, int col2) {
