@@ -2,7 +2,7 @@ class Solution {
 public:
     void nextPermutation(vector<int>& nums) {
         int n = nums.size(); 
-        int ind = -1; 
+        int ind = -1, diff = INT_MAX; 
         for(int i=n-2; i>=0; i--)
         {
             if(nums[i] < nums[i+1])
@@ -19,7 +19,7 @@ public:
         
         int ind2;
         for(int i=n-1; i>=0; i--) {
-            if(nums[i] > nums[ind]) {
+            if(nums[i] > nums[ind] and abs(nums[i] - nums[ind]) < diff) {
                 ind2 = i;
                 break;
             }
