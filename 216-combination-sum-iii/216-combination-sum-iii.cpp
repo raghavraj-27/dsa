@@ -17,12 +17,12 @@ public:
         vector<int> arr = {1,2,3,4,5,6,7,8,9};
         vector<vector<int>> ans;
         
-        int sum = 0; 
-        for(int i=0; i<k; i++) {
-            sum += arr[i];
-        }
+//         int sum = 0; 
+//         for(int i=0; i<k; i++) {
+//             sum += arr[i];
+//         }
         
-        if(sum > n) return ans;
+//         if(sum > n) return ans;
         
         vector<int> v;
         solve(0, arr, k, n, v, ans);
