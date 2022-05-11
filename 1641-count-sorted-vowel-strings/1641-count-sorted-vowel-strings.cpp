@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // soln by self
     int countVowelStrings(int n) {
         vector<vector<int>> dp(n+1, vector<int> (6, 0));
         
