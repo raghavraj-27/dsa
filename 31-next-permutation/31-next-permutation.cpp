@@ -29,9 +29,10 @@ public:
         nums[ind] = nums[ind2]; 
         nums[ind2] = temp;
         
-        auto it = nums.begin(); 
-        advance(it, ind+1);
-        reverse(it, nums.end()); 
+        sort(nums.begin()+ind+1, nums.end());
+        // auto it = nums.begin(); 
+        // advance(it, ind+1);
+        // reverse(it, nums.end()); 
         return;
     }
 };
