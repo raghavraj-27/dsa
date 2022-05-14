@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // BRUTE FORCE
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
         vector<vector<int>> ans;
         int n = intervals.size();
