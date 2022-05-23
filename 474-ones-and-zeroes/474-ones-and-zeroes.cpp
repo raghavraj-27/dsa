@@ -1,27 +1,13 @@
 class Solution {
 public:
     int dp[601][101][101] = {0};
-    int count(string & str) {
-        int c = 0; 
-        for(int i=0; i<str.size(); i++) {
-            if(str.at(i) == '0'){
-                c++;
-            }
-        }
-        return c;
-    }
     
     int calc(int i, vector<string> & v, int zero, int one, unordered_map<string, int>& count0) {
         if(i == v.size() or one + zero == 0) {
             return 0;
         }
         
-        // string str = to_string(zero) + "," + to_string(one) + "," + to_string(i);
         if(dp[i][zero][one] > 0) return dp[i][zero][one];
-        
-        // if(dp.find(str) != dp.end()) {
-        //     return dp[str];
-        // }
         
         int c0 = count0[v[i]];
         int c1 = v[i].size() - c0;
@@ -37,10 +23,6 @@ public:
     }
     
     int findMaxForm(vector<string>& strs, int m, int n) {
-        unordered_map<string, int> dp;
-        // int dp[strs.size()+1][m+1][n+1];
-        // memset(dp, 0, sizeof(dp));
-        
         unordered_map<string, int> count0;
         
         for(int i=0; i<strs.size(); i++) {
