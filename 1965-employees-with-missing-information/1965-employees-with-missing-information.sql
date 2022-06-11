@@ -1,31 +1,24 @@
-# select Employees.employee_id as employee_id
-# from Employees
-# outer join Salaries
-# on Employees.employee_id = Salaries.employee_id
-# where Employees.name is null or Salaries.salary is null
-
-select employee_id from Employees
-where employee_id not in (select employee_id from Salaries)
-union
-select employee_id from Salaries
-where employee_id not in (select employee_id from Employees)
-order by employee_id
-
-# select Employees.employee_id from Employees
-# where Employees.employee_id not in (select Salaries.employee_id from Salaries)
+# USING SUB QUERY AND NION
+# select employee_id from Employees
+# where employee_id not in (select employee_id from Salaries)
 # union
-# select Salaries.employee_id from Salaries
-# where Salaries.employee_id not in (select Employees.employee_id from Employees)
-# order by Salaries.employee_id 
+# select employee_id from Salaries
+# where employee_id not in (select employee_id from Employees)
+# order by employee_id
 
+# USING FULL JOIN = LEFT JOIN UION RIGHT JOIN
+SELECT sub.employee_id
+FROM (
+    SELECT e.employee_id, name, salary
+    FROM Employees AS e
+    LEFT JOIN Salaries AS s
+    ON e.employee_id = s.employee_id
 
+    UNION
 
-# select Employees.employee_id from Employees 
-# left join Salaries 
-# on Employees.employee_id <> Salaries.employee_id
-# where Employees.name is null
-# union
-# select Salaries.employee_id from Salaries 
-# right join Employees 
-# on Employees.employee_id <> Salaries.employee_id
-# where Salaries.salary is null
+    SELECT s.employee_id, name, salary
+    FROM Employees AS e
+    RIGHT JOIN Salaries AS s
+    ON e.employee_id = s.employee_id) AS sub
+WHERE sub.name IS NULL OR sub.salary IS null
+ORDER BY sub.employee_id
