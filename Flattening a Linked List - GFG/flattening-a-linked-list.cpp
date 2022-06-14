@@ -128,16 +128,16 @@ struct Node{
     
 //     return currhead;
 // }
-Node* merge(Node* l1, Node* l2) {
+Node* mergeLists(Node* l1, Node* l2) {
     if(l1 == NULL) return l2;
     if(l2 == NULL) return l1;
     
     if(l1->data < l2->data) {
-        l1->bottom = merge(l1->bottom, l2);
+        l1->bottom = mergeLists(l1->bottom, l2);
         return l1;
     }
     if(l1->data >= l2->data) {
-        l2->bottom = merge(l1, l2->bottom);
+        l2->bottom = mergeLists(l1, l2->bottom);
         return l2;
     }
     
@@ -153,6 +153,6 @@ Node *flatten(Node *root)
     Node* l1 = flatten(root->next); 
     Node* l2 = root; 
     
-    return merge(l1, l2);   
+    return mergeLists(l1, l2);   
 }
 
