@@ -107,32 +107,44 @@ struct Node{
 	
 };
 */
-
-Node* merge(Node* l1, Node* l2) 
-{
-    Node* currhead, *ptr1 = l1, * ptr2 = l2; 
-    if(l1->data > l2->data) {
-        swap(ptr1, ptr2);
-    } 
-    currhead = ptr1;
-    Node* temp = ptr1; 
+// Node* merge(Node* l1, Node* l2) 
+// {
+//     Node* currhead, *ptr1 = l1, * ptr2 = l2; 
+//     if(l1->data > l2->data) {
+//         swap(ptr1, ptr2);
+//     } 
+//     currhead = ptr1;
+//     Node* temp = ptr1; 
     
-    while(ptr1 != NULL and ptr2 != NULL) {
-        temp = NULL;
-        while(ptr1 != NULL and ptr1->data <= ptr2->data) {
-            temp = ptr1; 
-            ptr1 = ptr1->bottom;
-        }
-        temp->bottom = ptr2; 
-        swap(ptr1, ptr2);
+//     while(ptr1 != NULL and ptr2 != NULL) {
+//         temp = NULL;
+//         while(ptr1 != NULL and ptr1->data <= ptr2->data) {
+//             temp = ptr1; 
+//             ptr1 = ptr1->bottom;
+//         }
+//         temp->bottom = ptr2; 
+//         swap(ptr1, ptr2);
+//     }
+    
+//     return currhead;
+// }
+Node* merge(Node* l1, Node* l2) {
+    if(l1 == NULL) return l2;
+    if(l2 == NULL) return l1;
+    
+    if(l1->data < l2->data) {
+        l1->bottom = merge(l1->bottom, l2);
+        return l1;
+    }
+    if(l1->data >= l2->data) {
+        l2->bottom = merge(l1, l2->bottom);
+        return l2;
     }
     
-    return currhead;
+    return NULL;
 }
 
-
-/*  Function which returns the  root of 
-    the flattened linked list. */
+// Main function
 Node *flatten(Node *root)
 {
     if(root->next == NULL)
