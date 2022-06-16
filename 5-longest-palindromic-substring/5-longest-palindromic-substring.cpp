@@ -10,21 +10,8 @@ public:
                     dp[i][i] = true;
                 } else if(g==1) {
                     dp[i][j] = (s[i]==s[j]);
-                    // start = i; max_len = 2;
                 } else {
                     dp[i][j] = (s[i]==s[j]) && dp[i+1][j-1];
-                    
-//                     if(s[i] == s[j]) {
-//                         if(dp[i+1][j-1]) {
-                            
-//                             // start = i, max_len = g+1;
-//                             dp[i][j] = true;
-//                         } else {
-//                             dp[i][j] = false;
-//                         }
-//                     } else {
-//                         dp[i][j] = false;
-//                     }
                 }
                 
                 if(dp[i][j] == true) {
