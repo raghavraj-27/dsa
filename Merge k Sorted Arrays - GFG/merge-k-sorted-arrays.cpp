@@ -14,25 +14,50 @@ for (int i=0; i < size; i++)
  // } Driver Code Ends
 //User function Template for C++
 
+class element {
+    public:
+    int value, row, col;
+    element(int val, int r, int c) {
+        value = val;
+        row = r;
+        col = c;
+    }
+};
+
+struct compare
+{
+    bool operator()(element a,element b)
+    {
+        return a.value > b.value;
+    }
+};
 
 class Solution
 {
     public:
     //Function to merge k sorted arrays.
-    vector<int> mergeKArrays(vector<vector<int>> arr, int K)
-    {
-        vector<int> ans;
-        priority_queue<int, vector<int>, greater<int>> pq;
+    vector<int> mergeKArrays(vector<vector<int>> arr, int K) {
+        // min heap
+        priority_queue<element, vector<element>, compare> pq;
+        
         for(int i=0; i<K; i++) {
-            for(int j=0; j<K; j++) {
-                pq.push(arr[i][j]);
-            }
+            element ele(arr[i][0], i, 0);
+            pq.push(ele);
         }
         
-        // sort(ans.begin(), ans.end());
+        vector<int> ans;
+        
         while(not pq.empty()) {
-            ans.push_back(pq.top());
+            element e = pq.top();
             pq.pop();
+            
+            ans.push_back(e.value);
+            int i = e.row, j = e.col;
+            
+            if(j < K-1) {
+                element ele(arr[i][j+1], i, j+1);
+                pq.push(ele);
+            }
         }
         
         return ans;
