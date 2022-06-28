@@ -5,26 +5,21 @@ public:
         
         string temp="", ans = ""; 
         
-        while(i < n) 
+        for(int i=0; i < n; i++) 
         {
             char ch = s[i]; 
             
             if(ch != ' ') {
                 temp += ch; 
             } else if(ch == ' ' and temp == "") {
-                i++;
+                // i++;
                 continue;
             }
             else if(ch == ' ') {
                 ans = temp + ' ' + ans;
-                // if(ans == "") {
-                //     ans = temp; 
-                // } else if(temp != "" and ans != "") {
-                //     ans = temp + " " + ans;
-                // }
                 temp = "";
             }
-            i++;
+            // i++;
         }
         
         if(temp != "") {
