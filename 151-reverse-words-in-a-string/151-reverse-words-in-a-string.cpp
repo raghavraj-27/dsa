@@ -11,12 +11,17 @@ public:
             
             if(ch != ' ') {
                 temp += ch; 
-            } else if(ch == ' ') {
-                if(ans == "") {
-                    ans = temp; 
-                } else if(temp != "" and ans != "") {
-                    ans = temp + " " + ans;
-                }
+            } else if(ch == ' ' and temp == "") {
+                i++;
+                continue;
+            }
+            else if(ch == ' ') {
+                ans = temp + ' ' + ans;
+                // if(ans == "") {
+                //     ans = temp; 
+                // } else if(temp != "" and ans != "") {
+                //     ans = temp + " " + ans;
+                // }
                 temp = "";
             }
             i++;
