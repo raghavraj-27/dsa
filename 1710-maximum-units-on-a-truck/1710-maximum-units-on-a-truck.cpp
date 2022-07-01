@@ -13,8 +13,8 @@ public:
                 truckSize -= boxTypes[i][0];
             } else if(truckSize > 0) {
                 ans += (truckSize * boxTypes[i][1]);
-                // return ans;
-                truckSize = 0;
+                return ans;
+                // truckSize = 0;
             } else {
                 break;
             }
