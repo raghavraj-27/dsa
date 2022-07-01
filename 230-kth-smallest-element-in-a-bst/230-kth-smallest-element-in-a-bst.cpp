@@ -21,6 +21,7 @@ void findkthSmallest(TreeNode* root, int &k)
 
     if(k == 0) {
         ans = root->val;
+        return;
     }
     
     findkthSmallest(root->right, k); 
