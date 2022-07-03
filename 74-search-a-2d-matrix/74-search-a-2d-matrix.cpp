@@ -1,30 +1,18 @@
 class Solution {
 public:
-    int row, col;
-    
-    bool search(int left, int right, vector<vector<int>>& matrix, int target) {
-        if(right < left)
-            return false;
-        
-        int mid = (left + right) / 2;
-        int i = mid / col; 
-        int j = mid % col; 
-        
-        if(matrix[i][j] > target)
-            return search(left, mid-1, matrix, target); 
-        if(matrix[i][j] < target)
-            return search(mid+1, right, matrix, target); 
-        
-        return true;
-    }
-    
-    bool searchMatrix(vector<vector<int>>& matrix, int target) {
-        row = matrix.size(); 
-        col = matrix[0].size(); 
-        
-        int left = 0; 
-        int right = row*col -1;
-        
-        return search(left, right, matrix, target);
+    bool searchMatrix(vector<vector<int>>& matrix, int X) {
+        int M = matrix[0].size(), N = matrix.size();
+        int i = N-1;
+	    int j = 0;
+	    
+	    while(i >= 0 and j >= 0 and i<N and j<M) {
+	        int curr = matrix[i][j];
+	        if(curr == X) return 1;
+	        
+	        if(curr < X) j++;
+	        else i--;
+	    }
+	    
+	    return 0;
     }
 };
