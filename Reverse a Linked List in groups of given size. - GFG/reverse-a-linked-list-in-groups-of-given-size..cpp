@@ -61,11 +61,11 @@ class Solution
         node* dummy = new node(-1);
         dummy->next = head;
         node* cur = dummy, *pre = dummy, *nex = dummy;
-        while(len >= k) {
+        while(len > 1) {
             cur = pre->next;
             nex = cur->next;
             
-            for(int i=1; i<k; i++) {
+            for(int i=1; i<min(k, len); i++) {
                 cur->next = nex->next;
                 nex->next = pre->next;
                 pre->next = nex;
@@ -75,14 +75,14 @@ class Solution
             len -= k;
             pre = cur;
         }
-        if(len>1){cur = pre->next;
-        nex = cur->next;
-        for(int i=1; i<len; i++) {
-            cur->next = nex->next;
-            nex->next = pre->next;
-            pre->next = nex;
-            nex = cur->next;
-        }}
+        // if(len>1){cur = pre->next;
+        // nex = cur->next;
+        // for(int i=1; i<len; i++) {
+        //     cur->next = nex->next;
+        //     nex->next = pre->next;
+        //     pre->next = nex;
+        //     nex = cur->next;
+        // }}
         
         return dummy->next;
     }
