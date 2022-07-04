@@ -19,20 +19,14 @@ int main()
 
 int longestSubstrDistinctChars (string s)
 {
-    int left = 0, right = 0, n = s.size();
-    int maxlen = 0;
-    set<char> st;
-    while(right < n) {
-        char ch = s[right];
-        
-        if(st.find(ch) != st.end()) {
-            while(left < right and st.find(ch) != st.end()) {
-                st.erase(s[left]);
-                left++;
-            }
+    map<char, int> freq;
+    int maxlen = 0, left = 0, right = 0;
+    
+    while(right < s.size()) {
+        if(freq.find(s[right]) != freq.end()) {
+            left = max(left, freq[s[right]] + 1);
         }
-        
-        st.insert(s[right]);
+        freq[s[right]] = right;
         
         maxlen = max(maxlen, right - left + 1);
         right++;
