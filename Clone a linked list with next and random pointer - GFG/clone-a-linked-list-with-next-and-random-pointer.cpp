@@ -23,28 +23,50 @@ class Solution
     public:
     Node *copyList(Node *head)
     {
-        unordered_map<Node*, Node*> mp;
         Node* ptr = head;
         
         while(ptr != nullptr) {
+            Node *temp = ptr->next;
             Node *new_node = new Node(ptr->data);
-            mp[ptr] = new_node;
-            ptr = ptr->next;
+            
+            ptr->next = new_node;
+            new_node->next = temp;
+            ptr = temp;
         }
         
         ptr = head;
         while(ptr != nullptr) {
-            mp[ptr]->next = mp[ptr->next];
-            mp[ptr]->arb = mp[ptr->arb];
-            
-            ptr = ptr->next;
+            Node *temp = ptr->next->next;
+            if(ptr->arb != nullptr) {
+                ptr->next->arb = ptr->arb->next;
+            }
+            ptr = temp;
         }
         
-        return mp[head];
+        ptr = head;
+        bool offset = true;
+        Node *myhead = nullptr;
+        
+        while(ptr != nullptr) {
+            Node *temp = ptr->next->next;
+            Node *copy = ptr->next;
+            
+            if(offset == true) {
+                myhead = copy;
+                offset = false;
+            }
+            
+            if(temp != nullptr)
+                copy->next = temp->next;
+            ptr->next = temp;
+            
+            ptr = temp;
+        }
+        
+        return myhead;
     }
 
 };
-
 
 // { Driver Code Starts.
 
