@@ -1,32 +1,31 @@
 class Solution {
 public:
     vector<vector<string>> ans;
-    
-    bool isPalindromic(int left, int right, string s) {
-        while(left < right) {
+    bool isPalindrome(string s) {
+        int left = 0, right = s.size()-1;
+        while(left <= right) {
             if(s[left++] != s[right--]) return false;
         }
         return true;
     }
-    
-    void makePatitions(int ind, string& s, vector<string> v) {
+    void solve(int ind, string& s, vector<string>& strs) {
         if(ind >= s.size()) {
-            ans.push_back(v);
+            ans.push_back(strs);
+            return;
         }
         
         for(int i=ind; i<s.size(); i++) {
-            if(isPalindromic(ind, i, s)) {
-                string str = s.substr(ind, i-ind+1);
-                v.push_back(str);
-                makePatitions(i+1, s, v);
-                v.pop_back();
+            string str = s.substr(ind, i-ind+1);
+            if(isPalindrome(str)) {
+                strs.push_back(str);
+                solve(i + 1, s, strs);
+                strs.pop_back();
             }
         }
     }
-    
     vector<vector<string>> partition(string s) {
-        vector<string> v;
-        makePatitions(0, s, v);
+        vector<string> strs;
+        solve(0, s, strs);
         return ans;
     }
 };
