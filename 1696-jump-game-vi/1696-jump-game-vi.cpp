@@ -1,21 +1,23 @@
 class Solution {
 public:
+    // Optimized approach with TC : O(N log k) + O(log k)
+    // SC : O(K)
     int maxResult(vector<int>& nums, int k) {
-        int n = nums.size(), val = -1*1e9;
-        vector<int> dp(n, INT_MIN);
-        multiset<int> st; 
+        int n = nums.size();
+        vector<int> dp(n, 0);
+        multiset<int> st;
         
         dp[0] = nums[0];
         st.insert(dp[0]);
         
-        for(int i=1; i < n; i++) {
+        for(int i=1; i<n; i++) {
             if(i > k) {
                 st.erase(st.find(dp[i-k-1]));
             }
-            dp[i] = nums[i] + *st.rbegin();
+            dp[i] = *st.rbegin() + nums[i];
             st.insert(dp[i]);
         }
         
-        return dp.back();
+        return dp[n-1];
     }
 };
