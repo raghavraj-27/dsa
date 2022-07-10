@@ -3,6 +3,19 @@ public:
     vector<int> dx = {1, -1, 0, 0};
     vector<int> dy = {0, 0, -1, 1};
     
+    void dfs(int x, int y, vector<vector<bool>>& vis, vector<vector<int>>& h) {
+        vis[x][y] = true;
+        int m = h.size(), n = h[0].size();
+        for(int i=0; i<4; i++) {
+            int nx = x + dx[i];
+            int ny = y + dy[i];
+
+            if(nx < m and nx >= 0 and ny<n and ny>=0 and vis[nx][ny] == false and h[nx][ny] >= h[x][y]) {
+                dfs(nx, ny, vis, h);
+            }
+        }
+    }
+    
     void bfs(queue<pair<int, int>>& q, vector<vector<bool>>& vis, vector<vector<int>>& h) {
         int m = h.size(), n = h[0].size();
         
@@ -46,9 +59,20 @@ public:
             // v2[m-1][i] = true;
         }
         
+        
+        while(not q1.empty()) {
+            int i = q1.front().first, j = q1.front().second;
+            if(v1[i][j] == false) dfs(i, j, v1, h);
+            q1.pop();
+        }
+        while(not q2.empty()) {
+            int i = q2.front().first, j = q2.front().second;
+            if(v2[i][j] == false) dfs(i, j, v2, h);
+            q2.pop();
+        }
 
-        bfs(q1, v1, h);
-        bfs(q2, v2, h);
+        // bfs(q1, v1, h);
+        // bfs(q2, v2, h);
         
         vector<vector<int>> ans;
         for(int i=0; i<m; i++) {
