@@ -11,26 +11,19 @@
  */
 class Solution {
 public:
-map<int, vector<int>> levels; 
-
-void traverse(TreeNode* root, int level) 
-{
-    if(root == NULL) 
-        return; 
-
-    levels[level].push_back(root->val);
-    traverse(root->left, level+1);
-    traverse(root->right, level+1);
-}
-
-vector<vector<int>> levelOrder(TreeNode* root) {
-    traverse(root, 0);
-
-    vector<vector<int>> ans; 
-    for(auto v : levels) {
-        ans.push_back(v.second);
+    void traverse(TreeNode* node, int level, vector<vector<int>>& res) {
+        if(node == nullptr) return;
+        if(res.size() == level)
+            res.push_back(vector<int>());
+        
+        res[level].push_back(node->val);
+        traverse(node->left, level+1, res);
+        traverse(node->right, level+1, res);
     }
-
-    return ans;
-}
+    
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> res;
+        traverse(root, 0, res);
+        return res;
+    }
 };
