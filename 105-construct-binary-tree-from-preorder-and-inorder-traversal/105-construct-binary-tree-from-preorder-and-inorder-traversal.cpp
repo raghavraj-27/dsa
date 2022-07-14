@@ -11,55 +11,26 @@
  */
 class Solution {
 public:
-    map<int, int> inorderIndex, preorderIndex;
-    
-    TreeNode * buildingTree(int start, int end, vector<int> & inorder, vector<int> & preorder) 
-    {
-        if(start>end or end<0 or start>=inorder.size())
-            return NULL; 
+    map<int, int> inMap;
+    TreeNode* build(vector<int>& preorder, int preStart, int preEnd,
+                   vector<int>& inorder, int inStart, int inEnd) {
+        if(preStart > preEnd or inStart > inEnd) return nullptr;
         
-        if(start == end) 
-        {
-            TreeNode * new_node = new TreeNode(inorder[start]);
-            return new_node;
-        }
+        TreeNode *new_node = new TreeNode(preorder[preStart]);
+        int inRoot = inMap[new_node->val];
+        int numsLeft = inRoot - inStart;
         
-        int minIndex = INT_MAX;
-        int ind;
-        for(int i=start; i<=end; i++) 
-        {
-            if(minIndex > preorderIndex[inorder[i]])
-            {
-                minIndex = preorderIndex[inorder[i]]; 
-                ind = i;
-            }
-        }
-        
-        TreeNode * new_node = new TreeNode(preorder[minIndex]);
-        
-        new_node->left = buildingTree(start, ind-1, inorder, preorder); 
-        new_node->right = buildingTree(ind+1, end, inorder, preorder);
-        
+        new_node->left = build(preorder, preStart+1, preStart+numsLeft, inorder, inStart, inRoot-1);
+        new_node->right = build(preorder, preStart+numsLeft+1, preEnd, inorder, inRoot+1, inEnd);
         return new_node;
     }
     
-    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) 
-    {
-        TreeNode * root = new TreeNode(preorder[0]);
-        if(preorder.size() == 1) {
-            return root;
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        for(int i=0; i<inorder.size(); i++) {
+            inMap[inorder[i]] = i;
         }
         
-        for(int i=0; i<inorder.size(); i++) 
-        {
-            inorderIndex[inorder[i]] = i;
-            preorderIndex[preorder[i]] = i;
-        }    
-        
-        int ind = inorderIndex[root->val]; 
-        root->left = buildingTree(0, ind-1, inorder, preorder);
-        root->right = buildingTree(ind+1, inorder.size()-1, inorder, preorder);
-        
+        TreeNode *root = build(preorder, 0, preorder.size()-1, inorder, 0, inorder.size()-1);
         return root;
     }
 };
