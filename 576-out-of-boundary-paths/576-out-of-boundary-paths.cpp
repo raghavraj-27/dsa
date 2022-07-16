@@ -13,7 +13,7 @@ public:
         }
     }
     
-    int f(int i, int j, int m, int n, int maxMove, int dp[51][51][51]) {
+    int f(int i, int j, int m, int n, int maxMove) {
         if(maxMove < 0) return 0;
         
         if(i<0 or i>=m or j<0 or j>=n) {
@@ -23,17 +23,15 @@ public:
         
         if(dp[i][j][maxMove] >= 0) return dp[i][j][maxMove];
         
-        int a = f(i+1, j, m, n, maxMove-1, dp);
-        int b = f(i-1, j, m, n, maxMove-1, dp);
-        int c = f(i, j+1, m, n, maxMove-1, dp);
-        int d = f(i, j-1, m, n, maxMove-1, dp);
+        int a = f(i+1, j, m, n, maxMove-1);
+        int b = f(i-1, j, m, n, maxMove-1);
+        int c = f(i, j+1, m, n, maxMove-1);
+        int d = f(i, j-1, m, n, maxMove-1);
 
         return dp[i][j][maxMove] = ((a + b)%mod + (c + d)%mod) % mod;
     }
     
     int findPaths(int m, int n, int maxMove, int startRow, int startColumn) {
-        
-        
-        return f(startRow, startColumn, m, n, maxMove, dp);
+        return f(startRow, startColumn, m, n, maxMove);
     }
 };
