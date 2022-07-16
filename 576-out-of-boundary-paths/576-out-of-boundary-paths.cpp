@@ -1,6 +1,17 @@
 class Solution {
 public:
     int mod = 1e9 + 7;
+    int dp[51][51][51];
+    
+    Solution() {
+        for(int i=0; i<51; i++) {
+            for(int j=0; j<51; j++) {
+                for(int k=0; k<51; k++) {
+                    dp[i][j][k] = -1;
+                }
+            }
+        }
+    }
     
     int f(int i, int j, int m, int n, int maxMove, int dp[51][51][51]) {
         if(maxMove < 0) return 0;
@@ -21,14 +32,8 @@ public:
     }
     
     int findPaths(int m, int n, int maxMove, int startRow, int startColumn) {
-        int dp[51][51][51];
-        for(int i=0; i<51; i++) {
-            for(int j=0; j<51; j++) {
-                for(int k=0; k<51; k++) {
-                    dp[i][j][k] = -1;
-                }
-            }
-        }
+        
+        
         return f(startRow, startColumn, m, n, maxMove, dp);
     }
 };
