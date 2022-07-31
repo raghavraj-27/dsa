@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // striver dp series me hai aakhri
     int countSquares(vector<vector<int>>& matrix) {
         int m = matrix.size(), n = matrix[0].size();
         vector<vector<int>> dp(m, vector<int>(n, 0));
