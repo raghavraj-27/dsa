@@ -15,7 +15,7 @@ public:
         if(root == nullptr) return 0;
         
         int width = 0;
-        queue<pair<TreeNode*, long long>> pq;
+        queue<pair<TreeNode*, long>> pq;
         pq.push({root, 0});
         
         while(not pq.empty()) {
@@ -24,7 +24,7 @@ public:
             
             int first, last;
             for(int i=0; i<sz; i++) {
-                long long ind = pq.front().second - mn;
+                long ind = pq.front().second - mn;
                 TreeNode* curr = pq.front().first;
                 pq.pop();
                 
