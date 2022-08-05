@@ -11,24 +11,22 @@
  */
 class Solution {
 public:
-int ans;
-void findkthSmallest(TreeNode* root, int &k)
-{
-    if(root == NULL) return; 
+int K, ans;
+void f(TreeNode* node) {
+    if(node == nullptr) return;
 
-    findkthSmallest(root->left, k); 
-    k--; 
-
-    if(k == 0) {
-        ans = root->val;
+    f(node->left);
+    K--;
+    if(K == 0) {
+        ans = node->val;
         return;
     }
-    
-    findkthSmallest(root->right, k); 
+    f(node->right);
 }
 
 int kthSmallest(TreeNode* root, int k) {
-    findkthSmallest(root, k); 
+    K = k;
+    f(root);
     return ans;
 }
 };
