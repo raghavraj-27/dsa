@@ -12,16 +12,17 @@
 class Solution {
 public:
     map<int, int> inMap;
-    TreeNode* build(vector<int>& preorder, int preStart, int preEnd,
-                   vector<int>& inorder, int inStart, int inEnd) {
+    
+    TreeNode* build(vector<int>& preorder, int preStart, int preEnd, vector<int>& inorder, int inStart, int inEnd) {
         if(preStart > preEnd or inStart > inEnd) return nullptr;
         
-        TreeNode *new_node = new TreeNode(preorder[preStart]);
+        TreeNode* new_node = new TreeNode(preorder[preStart]);
         int inRoot = inMap[new_node->val];
         int numsLeft = inRoot - inStart;
         
         new_node->left = build(preorder, preStart+1, preStart+numsLeft, inorder, inStart, inRoot-1);
         new_node->right = build(preorder, preStart+numsLeft+1, preEnd, inorder, inRoot+1, inEnd);
+        
         return new_node;
     }
     
@@ -30,7 +31,6 @@ public:
             inMap[inorder[i]] = i;
         }
         
-        TreeNode *root = build(preorder, 0, preorder.size()-1, inorder, 0, inorder.size()-1);
-        return root;
+        return build(preorder, 0, preorder.size()-1, inorder, 0, inorder.size()-1);
     }
 };
