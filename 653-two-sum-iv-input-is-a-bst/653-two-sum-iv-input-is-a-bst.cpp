@@ -9,34 +9,59 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-class Solution {
+class BSTiterator {
 public:
-    void inorder(TreeNode* node, vector<int>& nums) {
-        if (!node) return;
-        inorder(node->left, nums);
-        nums.push_back(node->val);
-        inorder(node->right, nums);
+    bool reverse;
+    stack<TreeNode *> st;
+    
+    BSTiterator(TreeNode* node, bool isReverse) {
+        reverse = isReverse;
+        pushAll(node);
     }
-
-    bool findTargetInSortedArray(vector<int> a, int target) {
-        for (int i = 0, j = a.size() - 1; i < j;) {
-            int sum = a[i] + a[j];
-            if (sum == target) {
-                return true;
-            }
-            else if (sum < target) {
-                i++;
-            }
-            else {
-                j--;
+    
+    void pushAll(TreeNode* node) {
+        while(node != nullptr) {
+            st.push(node);
+            if(reverse == true) {
+                node = node->right;
+            } else {
+                node = node->left;
             }
         }
-
-        return false;
     }
+    
+    bool hasNext() {
+        return not st.empty();
+    }
+    
+    int next() {
+        TreeNode* node = st.top();
+        st.pop();
+        if(reverse == true) {
+            pushAll(node->left);
+        } else {
+            pushAll(node->right);
+        }
+        return node->val;
+    }
+};
+class Solution {
+public:
     bool findTarget(TreeNode* root, int k) {
-        vector<int> nums;
-        inorder(root, nums);
-        return findTargetInSortedArray(nums, k);
+        if(root == nullptr) return false;
+        
+        BSTiterator l(root, false);
+        BSTiterator r(root, true);
+        
+        int i = l.next();
+        int j = r.next();
+        
+        while(i < j) {
+            if(i + j == k) return true;
+            if(i + j < k) i = l.next();
+            if(i + j > k) j = r.next();
+        }
+        
+        return false;
     }
 };
