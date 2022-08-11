@@ -14,12 +14,10 @@ public:
     bool f(TreeNode* node, long mn, long mx) {
         if(node == nullptr) return true;
         
-        int curr = node->val;
+        if(mn >= node->val or mx <= node->val) return false;
         
-        if(curr <= mn or curr >= mx) return false;
-        
-        bool l = f(node->left, mn, curr);
-        bool r = f(node->right, curr, mx);
+        bool l = f(node->left, mn, node->val);
+        bool r = f(node->right, node->val, mx);
         
         return l and r;
     }
