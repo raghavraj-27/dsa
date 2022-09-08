@@ -1,26 +1,28 @@
 class Solution {
 public:
     vector<vector<int>> ans;
-    void solve(int ind, vector<int>& candidates, int target, vector<int>& subsets) {
+    void f(int ind, vector<int>& c, vector<int>& temp, int target) {
         if(target == 0) {
-            ans.push_back(subsets);
-            return;
+            ans.push_back(temp);
         }
         
-        if(ind >= candidates.size() or target < 0) return;
-        
-        for(int i=ind; i<candidates.size(); i++) {
-            if(ind != i and candidates[i-1] == candidates[i]) continue;
-            subsets.push_back(candidates[i]);
-            solve(i+1, candidates, target-candidates[i], subsets);
-            subsets.pop_back();
+        for(int i=ind; i<c.size(); i++) {
+            if(i != ind and c[i] == c[i-1]) continue;
+            
+            if(c[i] <= target) {
+                temp.push_back(c[i]);
+                f(i+1, c, temp, target-c[i]);
+                temp.pop_back();
+            } else {
+                return;
+            }
         }
     }
     vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
-        vector<int> subsets;
         sort(candidates.begin(), candidates.end());
-        solve(0, candidates, target, subsets);
+        vector<int> temp;
         
+        f(0, candidates, temp, target);
         return ans;
     }
 };
