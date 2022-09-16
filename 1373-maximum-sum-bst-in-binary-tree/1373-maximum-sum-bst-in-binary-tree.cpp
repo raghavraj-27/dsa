@@ -11,10 +11,10 @@
  */
 class NodeValue {
 public:
-    int minNode, maxNode, maxSum;
-    NodeValue(int minNode, int maxNode, int maxSum) {
-        this->minNode = minNode;
-        this->maxNode = maxNode;
+    int maxSum, minVal, maxVal;
+    NodeValue(int minVal, int maxVal, int maxSum) {
+        this->minVal = minVal;
+        this->maxVal = maxVal;
         this->maxSum = maxSum;
     }
 };
@@ -22,23 +22,26 @@ public:
 class Solution {
 public:
     int sum;
-    NodeValue largestBSTsubtreeHeight(TreeNode* node) {
-        if(node == nullptr) 
+    NodeValue findMaxSum(TreeNode* node) {
+        if(node == nullptr) {
             return NodeValue(INT_MAX, INT_MIN, 0);
+        }
         
-        auto l = largestBSTsubtreeHeight(node->left);
-        auto r = largestBSTsubtreeHeight(node->right);
+        auto l = findMaxSum(node->left);
+        auto r = findMaxSum(node->right);
         
-        if(l.maxNode < node->val and node->val < r.minNode) {
+        if(l.maxVal < node->val and node->val < r.minVal) {
             sum = max(sum, l.maxSum + r.maxSum + node->val);
-            return NodeValue(min(l.minNode, node->val), max(r.maxNode, node->val), l.maxSum + r.maxSum + node->val);
+            return NodeValue(min(l.minVal, node->val), max(node->val, r.maxVal), l.maxSum + r.maxSum + node->val);
         }
         
         return NodeValue(INT_MIN, INT_MAX, max(l.maxSum, r.maxSum));
     }
+    
     int maxSumBST(TreeNode* root) {
         sum = 0;
-        auto ans = largestBSTsubtreeHeight(root);
+        auto obj = findMaxSum(root);
         return sum;
+        // return obj.maxSum;
     }
 };
