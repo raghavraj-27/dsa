@@ -3,15 +3,12 @@ public:
     vector<int> f(int r) {
         vector<int> v(r, 1);
         
-        int N = r-1;
-        // for(int i=1; i<N; i++) {
-            int val = 1;
-            for(int j=0; j<r-2; j++) {
-                val *= (N-j);
-                val /= (j+1);
-            // }
+        int N = r-1, val = 1;
+        for(int i=0; i<r-2; i++) {
+            val *= (N-i);
+            val /= (i+1);
             
-            v[j+1] = val;
+            v[i+1] = val;
         }
         
         return v;
