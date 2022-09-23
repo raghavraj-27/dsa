@@ -4,22 +4,20 @@ public:
         vector<int> v(r, 1);
         
         int N = r-1;
-        for(int i=1; i<N; i++) {
+        // for(int i=1; i<N; i++) {
             int val = 1;
-            for(int j=0; j<i; j++) {
+            for(int j=0; j<r-2; j++) {
                 val *= (N-j);
                 val /= (j+1);
-            }
+            // }
             
-            v[i] = val;
+            v[j+1] = val;
         }
         
         return v;
     }
     
-    // 10C7 = 8.9.10
-    //        ______
-    //        1.2.3
+    
     
     vector<vector<int>> generate(int n) {
         // n = row
