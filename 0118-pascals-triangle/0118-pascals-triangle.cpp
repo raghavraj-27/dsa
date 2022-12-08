@@ -1,16 +1,13 @@
 class Solution {
 public:
     vector<int> generateIthRow(int n) {
-        vector<int> v;
-        
-        for(int i=0; i<n; i++) {
-            int N = n-1;
-            int r = i;
-            int res = 1;
-            for(int j=1; j<=r; j++) {
-                res = res * (N-r+j) / j;
-            }
-            v.push_back(res);
+        vector<int> v(n, 1);
+        int res = 1;
+        for(int i=0; i<n-2; i++) {
+            res *= (n-i-1);
+            res /= (i+1);
+            
+            v[i+1] = res;
         }
         
         return v;
