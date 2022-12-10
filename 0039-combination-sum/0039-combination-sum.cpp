@@ -11,10 +11,9 @@ public:
         
         if(i >= N or sum > target) return;
         
-        // if(sum <= target) {
-            v.push_back(c[i]);
-            f(i, N, c, sum + c[i], target);
-        // }
+        v.push_back(c[i]);
+        f(i, N, c, sum + c[i], target);
+        
         v.pop_back();
         f(i+1, N, c, sum, target);
     }
