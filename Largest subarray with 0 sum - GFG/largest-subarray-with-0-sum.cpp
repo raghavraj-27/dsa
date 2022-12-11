@@ -1,22 +1,22 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 //Initial Template for C++
 
 #include <bits/stdc++.h>
 using namespace std;
 
 
- // } Driver Code Ends
+// } Driver Code Ends
 /*You are required to complete this function*/
 
 class Solution{
     public:
-    int maxLen(vector<int>&a, int n)
+    int maxLen(vector<int>&A, int n)
     {   
+        int sum = 0, left = 0, max_len = 0;
         map<int, int> mp;
-        int max_len = 0, sum = 0;
         
-        for(int i=0; i<n; i++) {
-            sum += a[i];
+        for(int i=0; i<A.size(); i++) {
+            sum += A[i];
             
             if(mp.find(sum) != mp.end()) {
                 max_len = max(max_len, i-mp[sum]);
@@ -24,6 +24,7 @@ class Solution{
                 mp[sum] = i;
             }
             
+            // max_len = max(max_len, i-left+1);
             if(sum == 0) {
                 max_len = max(max_len, i+1);
             }
@@ -34,7 +35,7 @@ class Solution{
 };
 
 
-// { Driver Code Starts.
+//{ Driver Code Starts.
 
 int main()
 {
@@ -55,4 +56,5 @@ int main()
 }
 
 
-  // } Driver Code Ends
+
+// } Driver Code Ends
