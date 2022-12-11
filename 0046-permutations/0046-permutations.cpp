@@ -1,31 +1,23 @@
 class Solution {
 public:
-    vector<int> v;
-    vector<vector<int>> ans;
-    void createPermutation(vector<int>& nums, map<int, bool>& vis) {
-        if(v.size() == nums.size()) {
-            ans.push_back(v);
+    void createPermutation(int ind, vector<int>& nums, vector<vector<int>>& ans) {
+        if(ind >= nums.size()) {
+            ans.push_back(nums);
             return;
         }
         
-        for(int i=0; i<nums.size(); i++) {
-            if(vis[nums[i]] == false) {
-                vis[nums[i]] = true;
-                v.push_back(nums[i]);
-                createPermutation(nums, vis);
-                v.pop_back();
-                vis[nums[i]] = false;
-            }
+        for(int i=ind; i<nums.size(); i++) {
+            swap(nums[i], nums[ind]);
+            createPermutation(ind+1, nums, ans);
+            swap(nums[i], nums[ind]);
         }
     }
     
     vector<vector<int>> permute(vector<int>& nums) {
-        map<int, bool> vis;
-        for(int i=0; i<nums.size(); i++) {
-            vis[nums[i]] = false;
-        }
+        vector<vector<int>> ans;
+        vector<int> v;
         
-        createPermutation(nums, vis);
+        createPermutation(0, nums, ans);
         
         return ans;
     }
