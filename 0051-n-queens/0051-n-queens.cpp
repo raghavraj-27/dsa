@@ -27,17 +27,15 @@ public:
             return;
         }
         
-        // for(int i=ind; i<N; i++) {
-            for(int c=0; c<N; c++) {
-                if(board[ind][c] == '.') {
-                    if(isSafe(board, ind, c, N)) {
-                        board[ind][c] = 'Q';
-                        getSolveNQueens(ind+1, N, board, ans);
-                        board[ind][c] = '.';
-                    }
+        for(int c=0; c<N; c++) {
+            if(board[ind][c] == '.') {
+                if(isSafe(board, ind, c, N)) {
+                    board[ind][c] = 'Q';
+                    getSolveNQueens(ind+1, N, board, ans);
+                    board[ind][c] = '.';
                 }
             }
-        // }
+        }
     }
     vector<vector<string>> solveNQueens(int n) {
         vector<vector<string>> ans;
