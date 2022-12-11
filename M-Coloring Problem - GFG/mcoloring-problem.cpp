@@ -1,39 +1,42 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 #include <bits/stdc++.h>
 using namespace std;
 
 
- // } Driver Code Ends
-// Function to determine if graph can be coloured with at most M colours such
-// that no two adjacent vertices of graph are coloured with same colour.
-bool isSafe(int node, int N, int c, bool graph[101][101], vector<int>& color) {
-    for(int i=0; i<N; i++) {
-        if(node != i and graph[node][i] and color[i] == c) 
+// } Driver Code Ends
+class Solution{
+public:
+    bool checkWithColor_c(int node, int N, bool graph[101][101], int m, int c, vector<int>& color) {
+        for(int i=0; i<N; i++) {
+            if(i == node) continue;
+            if(graph[i][node] or graph[node][i]) {
+                if(color[i] == c) return false;
+            }
+        }
+        return true;
+    }
+    bool checkPossibility(int node, bool graph[101][101], int m, int n, vector<int>& color) {
+        if(node >= n) return true;
+        
+        for(int c=1; c<=m; c++) {
+            if(checkWithColor_c(node, n, graph, m, c, color)) {
+                color[node] = c;
+                if(checkPossibility(node+1, graph, m, n, color)) return true;
+                else color[node] = -1;
+            }
+        }
+        
         return false;
     }
-    return true;
-}
-
-bool colorTheGraph(int node, int N, bool graph[101][101], vector<int>& color, int m) {
-    if(node == N) return true;
-    
-    for(int i=1; i<=m; i++) {
-        if(isSafe(node, N, i, graph, color)) {
-            color[node] = i;
-            if(colorTheGraph(node+1, N, graph, color, m)) return true;
-            color[node] = 0;
-        }
+    // Function to determine if graph can be coloured with at most M colours such
+    // that no two adjacent vertices of graph are coloured with same colour.
+    bool graphColoring(bool graph[101][101], int m, int n) {
+        vector<int> colured(n, -1);
+        return checkPossibility(0, graph, m, n, colured);
     }
-    
-    return false;
-}
+};
 
-bool graphColoring(bool graph[101][101], int m, int n) {
-    vector<int> color(n, 0);
-    return colorTheGraph(0, n, graph, color, m);
-}
-
-// { Driver Code Starts.
+//{ Driver Code Starts.
 
 int main() {
     int t;
@@ -52,8 +55,10 @@ int main() {
             graph[a - 1][b - 1] = 1;
             graph[b - 1][a - 1] = 1;
         }
-        cout << graphColoring(graph, m, n) << endl;
+        Solution ob;
+        cout << ob.graphColoring(graph, m, n) << endl;
     }
     return 0;
 }
-  // } Driver Code Ends
+
+// } Driver Code Ends
