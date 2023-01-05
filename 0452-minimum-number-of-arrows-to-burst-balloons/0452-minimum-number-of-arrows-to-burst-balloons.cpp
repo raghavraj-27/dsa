@@ -2,10 +2,6 @@ class Solution {
 public:
     int findMinArrowShots(vector<vector<int>>& points) {
         sort(points.begin(), points.end());
-        for(auto v: points) {
-            cout<<v[0]<<","<<v[1]<<" ";
-        }
-        cout<<endl;
         
         vector<pair<int, int>> ans;
         pair<int, int> p = {points[0][0], points[0][1]};
@@ -22,9 +18,6 @@ public:
             }
         }
         ans.push_back(p);
-        for(auto v: ans) {
-            cout<<v.first<<","<<v.second<<" ";
-        }
         
         return ans.size();
     }
