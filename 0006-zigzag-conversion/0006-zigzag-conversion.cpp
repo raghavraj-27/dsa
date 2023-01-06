@@ -2,11 +2,9 @@ class Solution {
 public:
     string convert(string s, int numRows) {
         int n = s.size();
-        int numCols = ceil( (float)n / 1 + (numRows - 2) );
         vector<vector<char>> mat(numRows, vector<char> (n, ' '));
         
-        int i = 0;
-        int x = 0, y = 0;
+        int i = 0, x = 0, y = 0;
         
         while(i < s.size()) {
             for(int p=0; p<numRows and i<n; p++) {
@@ -16,10 +14,6 @@ public:
             for(int p=numRows-2; p>0 and i<n; p--) {
                 mat[p][y++] = s[i++];
             }
-            // for(int p=0; p<numRows and i<n; p++) {
-            //     mat[p][y] = s[i++];
-            // }
-            
         }
         
         string ans = "";
