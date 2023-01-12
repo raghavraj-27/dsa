@@ -8,17 +8,11 @@ public:
     }
     vector<int> dfs(int node, int parent, vector<int> adj[], string& labels) {
         vector<int> mp(26, 0);
-        // mp[labels[node]]++;
         
         for(int i: adj[node]) {
             if(i != parent) {
                 auto v = dfs(i, node, adj, labels);
-                // ans[i] = v[labels[i] - 'a'];
-                
                 add(v, mp);
-                // for(auto p: mp) {
-                //     mp[p.first] += v[p.first];
-                // }
             }
         }
         mp[labels[node] - 'a']++;
@@ -37,8 +31,7 @@ public:
             adj[v[1]].push_back(v[0]);
         }
         
-        auto v = dfs(0, -1, adj, labels);
-        // ans[0] = v[labels[0]];
+        dfs(0, -1, adj, labels);
         return ans;
     }
 };
