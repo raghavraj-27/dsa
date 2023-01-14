@@ -1,12 +1,12 @@
 class Solution {
 public:
-    int f(int node, int parent, vector<vector<int>>& adj, vector<bool>& vis) {
+    int dfs(int node, int parent, vector<vector<int>>& adj, vector<bool>& vis) {
         int ans = node;
         vis[node] = true;
         
         for(int i: adj[node]) {
             if(i != parent and vis[i] == false) {
-                ans = min(ans, f(i, node, adj, vis));
+                ans = min(ans, dfs(i, node, adj, vis));
             }
         }
         
@@ -25,7 +25,7 @@ public:
         string ans = "";
         for(char ch: baseStr) {
             vector<bool> vis(26, false);
-            ans = ans + (char) (97 + min(f(ch-'a', -1, adj, vis), ch-'a'));
+            ans = ans + (char) (97 + min(dfs(ch-'a', -1, adj, vis), ch-'a'));
         }
         
         return ans;
