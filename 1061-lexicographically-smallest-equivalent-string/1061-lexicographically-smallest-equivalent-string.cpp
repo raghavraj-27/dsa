@@ -20,36 +20,12 @@ public:
             char ch1 = s1[i], ch2 = s2[i];
             adj[ch1-'a'].push_back(ch2-'a');
             adj[ch2-'a'].push_back(ch1-'a');
-//             bool flag = false;
-            
-//             for(int j=0; j<v.size(); j++) {
-//                 if(v[j].find(ch1) != v[j].end() or v[j].find(ch2) != v[j].end()) {
-//                     v[j].insert(ch1); v[j].insert(ch2);
-//                     flag = true;
-//                     break;
-//                 }
-//             }
-            
-//             if(flag == false) {
-//                 set<char> s;
-//                 s.insert(ch1); s.insert(ch2);
-//                 v.push_back(s);
-//             }
         }
         
         string ans = "";
         for(char ch: baseStr) {
             vector<bool> vis(26, false);
             ans = ans + (char) (97 + min(f(ch-'a', -1, adj, vis), ch-'a'));
-            // bool flag = false;
-            // for(int i=0; i<v.size(); i++) {
-            //     if(v[i].find(ch) != v[i].end()) {
-            //         ans = ans + (char)min((int)*v[i].begin(), (int)ch);
-            //         flag = true;
-            //         break;
-            //     }
-            // }
-            // if(flag == false) ans = ans + ch;
         }
         
         return ans;
