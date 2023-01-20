@@ -9,11 +9,7 @@ public:
                 seq.push_back(nums[i]);
             } else {
                 int ind = lower_bound(seq.begin(), seq.end(), nums[i]) - seq.begin();
-                // if(seq.size() >= ind) {
-                    // seq[seq.size() - 1] = nums[i];
-                // } else {
-                    seq[ind] = nums[i];
-                // }
+                seq[ind] = nums[i];
             }
         }
         
