@@ -35,8 +35,6 @@ public:
     
     vector<int> shortestAlternatingPaths(int n, vector<vector<int>>& redEdges, vector<vector<int>>& blueEdges) {
         vector<pair<int, int>> adj[n];
-        // vector<int> badj[n];
-        
         for(auto v: redEdges) {
             adj[v[0]].push_back({v[1], 0});
         }
@@ -44,16 +42,6 @@ public:
             adj[v[0]].push_back({v[1], 1});
         }
         
-        // dist.resize(n, -1);
-        // for(int i=0; i<n; i++) {
-        //     dist[i] = INT_MAX;
-        // }
         return search(adj, n);
-        // for(int i=0; i<n; i++) {
-        //     if(dist[i] == INT_MAX) {
-        //         dist[i] = -1;
-        //     }
-        // }
-        
     }
 };
