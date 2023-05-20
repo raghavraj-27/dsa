@@ -39,7 +39,6 @@ public:
                 // components.push_back(i);
             }
         }
-        cout<<"\n";
         
 //         for(int node: components) {
 //             if(isCompleteComponent(node, adj)) {
